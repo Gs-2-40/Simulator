@@ -29,7 +29,7 @@ float timeScale = 60 * 60;
 void initconfig(World*& world, Subject*& player) {
     world = new World();
     player = new SatCreator(world);
-    world->add_object(new MatPoint(6378100 / 2, BLUE, 5.972f * pow(10, 24), (Vector3){0.0f, 0.0f, 0.0f}));
+    world->add_object(new MatPoint(6378100 / 2, BLUE, 5.972f * pow(10, 24), (Vector3){0.0f, 0.0f, 0.0f}, (Vector3){0.0f, 0.0f, 0.0f}));
 
     world->add_object(new MatPoint(637810, RED, 450000, (Vector3){6378100 + 400000.0f, 0.0f, 0.0f}, (Vector3){0.0f, 0.0f, 7660.0f}));
 

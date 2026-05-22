@@ -10,7 +10,7 @@
 class MatPoint : public MySphere {
 private:
     float mass;
-    Vector3 velocity;
+    Vector3 velocity = {0.0f, 0.0f, 0.0f}; // Теперь скорость всегда будет нулевой по умолчанию
 public:
     MatPoint(float r, Color c, float m, Matrix o_t, Vector3 pos) : MySphere(r, c, o_t, pos) {
         this->mass = m;
