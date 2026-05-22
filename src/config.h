@@ -33,7 +33,7 @@ void initconfig(World*& world, Subject*& player) {
 
     world->add_object(new MatPoint(637810, RED, 450000, (Vector3){6378100 + 400000.0f, 0.0f, 0.0f}, (Vector3){0.0f, 0.0f, 7660.0f}));
 
-//    world->add_object(new MatPoint(637810, GREEN, 450000, (Vector3){-6378100 - 600000.0f, 0.0f, 0.0f}, (Vector3){0.0f, 0.0f, -8274.0f}));
+    world->add_object(new MatPoint(637810, GREEN, 450000, (Vector3){-6378100 - 600000.0f, 0.0f, 0.0f}, (Vector3){0.0f, 0.0f, -8274.0f}));
 
 }
 

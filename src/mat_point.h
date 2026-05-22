@@ -72,7 +72,7 @@ public:
         float distance = Vector3Distance(this->position, other->position);
         if (distance < (other->radius + this->radius)) distance = other->radius + this->radius;
         float force = 6.6743f * pow(10, -11) * this->mass * other->mass / (distance * distance);
-        Vector3 direction = Vector3Normalize(Vector3Subtract(this->position, other->position));
+        Vector3 direction = Vector3Normalize(Vector3Subtract(other->position, this->position));
         return Vector3Scale(direction, force);
     }
 };
