@@ -20,7 +20,7 @@ public:
     void onClick() override {
         std::cout << "Sat clicked!" << std::endl;
         // Переводим позицию камеры из масштабированных единиц в метры
-        Vector3 realPos = Vector3Transform(camera.position, world->world_transform);
+        Vector3 realPos = Vector3Transform(camera.position, MatrixInvert(world->world_transform));
         world->add_object(new MatPoint(637810, BLACK, 450000,
                                     realPos,
                                     Vector3Scale(direction, 7660.0f)));

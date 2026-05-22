@@ -31,19 +31,6 @@ public:
     virtual void onClick() = 0;
 
     void UpdateCamera() {
-        // 1. Получаем дельту движения мыши за текущий кадр
-        Vector2 mouseDelta = GetMouseDelta();
-        float sensitivity = 0.003f;
-
-        if (!isPaused) {
-            angleH -= mouseDelta.x * sensitivity;
-            angleV -= mouseDelta.y * sensitivity;
-        }
-
-        // Ограничиваем вертикальный угол, чтобы камера не перевернулась (Gimbal Lock)
-        if (angleV > 3.1415f / 2.0f) angleV = 3.1415f / 2.0f;
-        if (angleV < -3.1415f / 2.0f) angleV = -3.1415f / 2.0f;
-
         // 3. Зум (колесико мыши)
         camera.fovy -= GetMouseWheelMove() * 2.0f; // Уменьшение угла приближает картинку
         if (camera.fovy < 5.0f) camera.fovy = 5.0f;   // Максимальный зум
@@ -61,6 +48,19 @@ public:
         if (IsKeyDown(KEY_S)) camera.position = Vector3Subtract(camera.position, Vector3Scale(direction, speed * 60.0f * deltaTime));
         if (IsKeyDown(KEY_A)) camera.position = Vector3Subtract(camera.position, Vector3Scale(Vector3Normalize(Vector3CrossProduct(direction, camera.up)), speed * 60.0f * deltaTime));
         if (IsKeyDown(KEY_D)) camera.position = Vector3Add(camera.position, Vector3Scale(Vector3Normalize(Vector3CrossProduct(direction, camera.up)), speed * 60.0f * deltaTime)); 
+
+        // 1. Получаем дельту движения мыши за текущий кадр
+        Vector2 mouseDelta = GetMouseDelta();
+        float sensitivity = 0.003f;
+
+        if (!isPaused) {
+            angleH -= mouseDelta.x * sensitivity;
+            angleV -= mouseDelta.y * sensitivity;
+        }
+
+        // Ограничиваем вертикальный угол, чтобы камера не перевернулась (Gimbal Lock)
+        if (angleV > 3.1415f / 2.0f) angleV = 3.1415f / 2.0f;
+        if (angleV < -3.1415f / 2.0f) angleV = -3.1415f / 2.0f;
 
         camera.target.x = camera.position.x + sinf(angleH);
         camera.target.y = camera.position.y + sinf(angleV);
