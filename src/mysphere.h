@@ -39,6 +39,8 @@ public:
             DrawSphere(position, radius, color); 
         rlPopMatrix();
     }
+
+    float getRadius() const { return radius; }
 };
 
 #endif

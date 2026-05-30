@@ -28,20 +28,9 @@ public:
         DisableCursor();
     }
 
-    virtual void onClick() = 0;
+    virtual void onClick() {};
 
-    void UpdateCamera() {
-        // 3. Зум (колесико мыши)
-        camera.fovy -= GetMouseWheelMove() * 2.0f; // Уменьшение угла приближает картинку
-        if (camera.fovy < 5.0f) camera.fovy = 5.0f;   // Максимальный зум
-        if (camera.fovy > 120.0f) camera.fovy = 120.0f; // Рыбий глаз
-
-        // 4. Пересчитываем сферические координаты в декартовы (X, Y, Z)
-        // Математика:
-        // x = r * cos(v) * sin(h)
-        // y = r * sin(v)
-        // z = r * cos(v) * cos(h)
-        
+    virtual void updatePos() {
         direction = Vector3Normalize(camera.target - camera.position);
         float deltaTime = GetFrameTime(); // Получаем время кадра
         if (IsKeyDown(KEY_W)) camera.position = Vector3Add(camera.position, Vector3Scale(direction, speed * 60.0f * deltaTime));
@@ -49,7 +38,13 @@ public:
         if (IsKeyDown(KEY_A)) camera.position = Vector3Subtract(camera.position, Vector3Scale(Vector3Normalize(Vector3CrossProduct(direction, camera.up)), speed * 60.0f * deltaTime));
         if (IsKeyDown(KEY_D)) camera.position = Vector3Add(camera.position, Vector3Scale(Vector3Normalize(Vector3CrossProduct(direction, camera.up)), speed * 60.0f * deltaTime)); 
 
-        // 1. Получаем дельту движения мыши за текущий кадр
+    }
+
+    virtual void updateDirection() {
+        camera.fovy -= GetMouseWheelMove() * 2.0f; // Уменьшение угла приближает картинку
+        if (camera.fovy < 5.0f) camera.fovy = 5.0f;   // Максимальный зум
+        if (camera.fovy > 120.0f) camera.fovy = 120.0f; // Рыбий глаз
+
         Vector2 mouseDelta = GetMouseDelta();
         float sensitivity = 0.003f;
 
@@ -65,6 +60,12 @@ public:
         camera.target.x = camera.position.x + sinf(angleH);
         camera.target.y = camera.position.y + sinf(angleV);
         camera.target.z = camera.position.z + cosf(angleH);
+    }
+
+    void UpdateCamera() {
+        this->updatePos();
+
+        this->updateDirection();
 
         if (IsKeyPressed(KEY_TAB)) {
             if (!isPaused) {

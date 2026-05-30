@@ -18,6 +18,11 @@ public:
     World() {
         world_transform = MatrixIdentity();
     }
+
+    std::vector<Object*>* get_objects() {
+        return &objects;
+    }
+
     void add_object(Object* object) {
         objects.push_back(object);
     }
@@ -29,12 +34,12 @@ public:
 
 
     void process(float timeScale) {
-        std::cout << objects.size();
+//       std::cout << objects.size();
         for (int i = 0; i < objects.size(); i++) {
             objects[i]->process(objects, timeScale);
-            std::cout << "{" << objects[i]->position.x << " " << objects[i]->position.y << " " << objects[i]->position.z << "} ";
+            //std::cout << "{" << objects[i]->position.x << " " << objects[i]->position.y << " " << objects[i]->position.z << "} ";
         }
-        std::cout << std::endl;
+//        std::cout << std::endl;
     }
 
     void process() {
@@ -42,7 +47,7 @@ public:
             objects[i]->process(objects);
             //std::cout << objects[i]->position.x << "|" << objects[i]->position.y << "|" << objects[i]->position.z << ' ';
         }
-        std::cout << std::endl;
+//        std::cout << std::endl;
     }
 
     ~World() {

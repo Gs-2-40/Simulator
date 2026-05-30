@@ -75,6 +75,8 @@ public:
         Vector3 direction = Vector3Normalize(Vector3Subtract(other->position, this->position));
         return Vector3Scale(direction, force);
     }
+
+    float getMass() { return this->mass; }
 };
 
 #endif
