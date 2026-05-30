@@ -11,8 +11,6 @@ int main() {
 
     initconfig(world, player);
     
-    world->world_transform = MatrixScale(scaleFactor, scaleFactor, scaleFactor);
-    
     while (!WindowShouldClose()) {
         player->UpdateCamera();
         float time = GetTime();

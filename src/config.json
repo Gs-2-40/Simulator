@@ -1,0 +1,36 @@
+{
+  "simulation": {
+    "scaleFactor": 1.56788e-7,
+    "timeScale": 3600.0,
+    "subject": "Subject"
+  },
+  "objects": [
+    {
+      "name": "Earth",
+      "type": "MatPoint",
+      "mass": 5.9722e24,
+      "radius": 3200000.0,
+      "color": [0, 0, 255, 255],
+      "position": [0.0, 0.0, 0.0],
+      "velocity": [0.0, 0.0, 0.0]
+    },
+    {
+      "name": "Satellite1",
+      "type": "MatPoint",
+      "mass": 450000.0,
+      "radius": 637810,
+      "color": [255, 0, 0, 255],
+      "position": [7000000.0, 0.0, 0.0],
+      "velocity": [0.0, 0.0, 7660.0]
+    },
+    {
+      "name": "Satellite1",
+      "type": "MatPoint",
+      "mass": 450000.0,
+      "radius": 637810,
+      "color": [0, 255, 0, 255],
+      "position": [-7000000.0, 0.0, 0.0],
+      "velocity": [0.0, 0.0, -8274.0]
+    }
+  ]
+}
