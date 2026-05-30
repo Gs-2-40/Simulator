@@ -30,10 +30,8 @@ public:
     }
 
     void draw(Matrix world_transform) const override {
-            // Вычисляем итоговую матрицу (объект -> мир)
         Matrix finalTransform = MatrixMultiply(object_transform, world_transform);
         
-        // Передаем трансформацию в OpenGL (rlgl)
         rlPushMatrix();
             rlMultMatrixf(MatrixToFloat(finalTransform));
             DrawSphere(position, radius, color); 

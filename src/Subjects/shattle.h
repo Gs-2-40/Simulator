@@ -3,7 +3,7 @@
 #include "rlgl.h"
 #include <vector>
 #include <iostream>
-#include "mat_point.h"
+#include "../Objects/mat_point.h"
 #include "subject.h"
 
 #ifndef SHATTLE_H
@@ -25,14 +25,13 @@ public:
     }
     void updatePos() override {
         direction = Vector3Normalize(camera.target - camera.position);
-        float deltaTime = GetFrameTime(); // Получаем время кадра
+        float deltaTime = GetFrameTime();
         if (IsKeyDown(KEY_W)) this->velocity = Vector3Add(this->velocity, Vector3Scale(direction, speed * deltaTime));
         if (IsKeyDown(KEY_S)) this->velocity = Vector3Subtract(this->velocity, Vector3Scale(direction, speed * deltaTime));
         if (IsKeyDown(KEY_A)) this->velocity = Vector3Subtract(this->velocity, Vector3Scale(Vector3Normalize(Vector3CrossProduct(direction, camera.up)), speed * deltaTime));
         if (IsKeyDown(KEY_D)) this->velocity = Vector3Add(this->velocity, Vector3Scale(Vector3Normalize(Vector3CrossProduct(direction, camera.up)), speed * deltaTime));
         if (IsKeyPressed(KEY_G)) {
             is_gravitated = !is_gravitated;
-            std::cout << "Gravity: " << is_gravitated << std::endl;
         }
         if (is_gravitated) this->process(deltaTime);
         this->position = Vector3Add(this->position, Vector3Scale(this->velocity, deltaTime));
@@ -57,9 +56,9 @@ public:
     }
 
     virtual void updateDirection() {
-        camera.fovy -= GetMouseWheelMove() * 2.0f; // Уменьшение угла приближает картинку
+        camera.fovy -= GetMouseWheelMove() * 2.0f;
         if (camera.fovy < 5.0f) camera.fovy = 5.0f;   // Максимальный зум
-        if (camera.fovy > 120.0f) camera.fovy = 120.0f; // Рыбий глаз
+        if (camera.fovy > 120.0f) camera.fovy = 120.0f; // Минимальный зум
 
         Vector2 mouseDelta = GetMouseDelta();
         float sensitivity = 0.002f;
@@ -75,7 +74,6 @@ public:
         camera.target.x = camera.position.x + cosf(angleV) * sinf(angleH);
         camera.target.y = camera.position.y + sinf(angleV);
         camera.target.z = camera.position.z + cosf(angleV) * cosf(angleH);
-        std::cout << angleH << " " << angleV << std::endl;
     }
 };
 #endif

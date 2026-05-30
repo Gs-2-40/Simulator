@@ -32,7 +32,7 @@ public:
 
     virtual void updatePos() {
         direction = Vector3Normalize(camera.target - camera.position);
-        float deltaTime = GetFrameTime(); // Получаем время кадра
+        float deltaTime = GetFrameTime();
         if (IsKeyDown(KEY_W)) camera.position = Vector3Add(camera.position, Vector3Scale(direction, speed * 60.0f * deltaTime));
         if (IsKeyDown(KEY_S)) camera.position = Vector3Subtract(camera.position, Vector3Scale(direction, speed * 60.0f * deltaTime));
         if (IsKeyDown(KEY_A)) camera.position = Vector3Subtract(camera.position, Vector3Scale(Vector3Normalize(Vector3CrossProduct(direction, camera.up)), speed * 60.0f * deltaTime));
@@ -41,9 +41,9 @@ public:
     }
 
     virtual void updateDirection() {
-        camera.fovy -= GetMouseWheelMove() * 2.0f; // Уменьшение угла приближает картинку
+        camera.fovy -= GetMouseWheelMove() * 2.0f;
         if (camera.fovy < 5.0f) camera.fovy = 5.0f;   // Максимальный зум
-        if (camera.fovy > 120.0f) camera.fovy = 120.0f; // Рыбий глаз
+        if (camera.fovy > 120.0f) camera.fovy = 120.0f; // минимальный зум
 
         Vector2 mouseDelta = GetMouseDelta();
         float sensitivity = 0.003f;
@@ -53,18 +53,14 @@ public:
             angleV -= mouseDelta.y * sensitivity;
         }
 
-        // Ограничиваем вертикальный угол, чтобы камера не перевернулась (Gimbal Lock)
+        // Ограничиваем вертикальный угол, чтобы камера не перевернулась
         if (angleV > 3.1415f / 2.0f) angleV = 3.1415f / 2.0f;
         if (angleV < -3.1415f / 2.0f) angleV = -3.1415f / 2.0f;
 
-        /*camera.target.x = camera.position.x + sinf(angleH);
-        camera.target.y = camera.position.y + sinf(angleV);
-        camera.target.z = camera.position.z + cosf(angleH);*/
 
         camera.target.x = camera.position.x + cosf(angleV) * sinf(angleH);
         camera.target.y = camera.position.y + sinf(angleV);
         camera.target.z = camera.position.z + cosf(angleV) * cosf(angleH);
-        std::cout << angleH << " " << angleV << std::endl;
     }
 
     void UpdateCamera() {
@@ -82,7 +78,6 @@ public:
             }
         }
         if (IsKeyPressed(KEY_SPACE)) {
-            std::cout << "Space" << std::endl;
             onClick();
         }
     }

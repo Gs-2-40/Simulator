@@ -7,7 +7,7 @@ int main() {
     SetTargetFPS(60);
 
     World* world;
-    Subject* player = nullptr; // Изменили на указатель
+    Subject* player = nullptr;
 
     initconfig(world, player);
     

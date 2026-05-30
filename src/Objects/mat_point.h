@@ -10,7 +10,7 @@
 class MatPoint : public MySphere {
 private:
     float mass;
-    Vector3 velocity = {0.0f, 0.0f, 0.0f}; // Теперь скорость всегда будет нулевой по умолчанию
+    Vector3 velocity = {0.0f, 0.0f, 0.0f};
 public:
     MatPoint(float r, Color c, float m, Matrix o_t, Vector3 pos) : MySphere(r, c, o_t, pos) {
         this->mass = m;
@@ -32,7 +32,6 @@ public:
     
     void process(std::vector<Object*>& objects) override {
         
-        // 1. Суммируем все силы, действующие на тело
         Vector3 totalForce = {0.0f, 0.0f, 0.0f};
         for (auto* obj : objects) {
             auto* other = dynamic_cast<MatPoint*>(obj);
@@ -41,17 +40,14 @@ public:
             }
         }
             
-        // 2. Обновляем скорость
         this->velocity = Vector3Add(this->velocity, Vector3Scale(totalForce, 1.0f / this->mass));
         
-        // 3. Обновляем позицию (один раз!)
         this->position = Vector3Add(this->position, Vector3Scale(this->velocity, 1.0f));
     }
 
     void process(std::vector<Object*>& objects, float timeScale) override {
         float deltaTime = GetFrameTime() * timeScale;
         
-        // 1. Суммируем все силы, действующие на тело
         Vector3 totalForce = {0.0f, 0.0f, 0.0f};
         for (auto* obj : objects) {
             auto* other = dynamic_cast<MatPoint*>(obj);
@@ -60,10 +56,8 @@ public:
             }
         }
             
-        // 2. Обновляем скорость
         this->velocity = Vector3Add(this->velocity, Vector3Scale(totalForce, deltaTime / this->mass));
         
-        // 3. Обновляем позицию (один раз!)
         this->position = Vector3Add(this->position, Vector3Scale(this->velocity, deltaTime));
     }
 

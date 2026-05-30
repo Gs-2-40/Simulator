@@ -31,11 +31,8 @@ public:
         position = {0.0f, 0.0f, 0.0f};
     }
 
-    // Метод для отрисовки (соблюдаем инкапсуляцию)
     void draw(Matrix world_transform) const override {
-        // Применяем матрицу трансформации перед отрисовкой
         rlPushMatrix();
-            // Превращаем нашу Matrix в формат, понятный OpenGL (float[16])
             rlMultMatrixf(MatrixToFloat(MatrixMultiply(object_transform, world_transform)));
 
             rlBegin(RL_TRIANGLES);

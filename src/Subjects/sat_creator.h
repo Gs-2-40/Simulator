@@ -3,7 +3,7 @@
 #include "rlgl.h"
 #include <vector>
 #include <iostream>
-#include "mat_point.h"
+#include "../Objects/mat_point.h"
 #include "subject.h"
 
 #ifndef SATCREATOR_H
@@ -19,7 +19,6 @@ public:
 
     void onClick() override {
         std::cout << "Sat clicked!" << std::endl;
-        // Переводим позицию камеры из масштабированных единиц в метры
         Vector3 realPos = Vector3Transform(camera.position, MatrixInvert(world->world_transform));
         world->add_object(new MatPoint(637810, BLACK, 450000,
                                     realPos,
