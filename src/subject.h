@@ -64,6 +64,7 @@ public:
         camera.target.x = camera.position.x + cosf(angleV) * sinf(angleH);
         camera.target.y = camera.position.y + sinf(angleV);
         camera.target.z = camera.position.z + cosf(angleV) * cosf(angleH);
+        std::cout << angleH << " " << angleV << std::endl;
     }
 
     void UpdateCamera() {

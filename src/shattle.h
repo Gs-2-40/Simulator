@@ -72,9 +72,10 @@ public:
         if (angleV > 3.1415f / 2.0f) angleV = 3.1415f / 2.0f;
         if (angleV < -3.1415f / 2.0f) angleV = -3.1415f / 2.0f;
 
-        camera.target.x = camera.position.x + sinf(angleH);
+        camera.target.x = camera.position.x + cosf(angleV) * sinf(angleH);
         camera.target.y = camera.position.y + sinf(angleV);
-        camera.target.z = camera.position.z + cosf(angleH);
+        camera.target.z = camera.position.z + cosf(angleV) * cosf(angleH);
+        std::cout << angleH << " " << angleV << std::endl;
     }
 };
 #endif

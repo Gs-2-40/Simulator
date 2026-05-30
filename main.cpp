@@ -32,8 +32,7 @@ int main() {
 
         EndMode3D();
 
-        DrawText("Welcome to 3D World!", 10, 10, 20, DARKGRAY);
-        DrawFPS(10, 40);
+        DrawFPS(10, 10);
 
         EndDrawing();
     }
